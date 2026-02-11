@@ -1,5 +1,6 @@
 import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
+import './FAQScreen.css';
 
 interface FAQItem {
     question: string;
@@ -50,7 +51,7 @@ export default function FAQScreen({ onBack }: { onBack: () => void }) {
                                 {isOpen ? <ChevronUp size={18} className="text-primary" /> : <ChevronDown size={18} className="text-gray" />}
                             </button>
                             {isOpen && (
-                                <div className="px-4 pb-5 text-[11px] text-gray leading-relaxed">
+                                <div className="expanded-text text-[11px] text-gray leading-relaxed">
                                     {faq.answer}
                                 </div>
                             )}

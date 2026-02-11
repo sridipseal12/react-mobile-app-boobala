@@ -57,7 +57,14 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                 </div>
                 <div className="relative p-2 bg-orange-50 rounded-xl cursor-pointer active:scale-95 transition-transform" onClick={onOpenNotifications}>
                     <Bell size={20} className="text-primary" />
-                    <span className="absolute top-1 right-1 bg-primary text-white text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-orange-50">2</span>
+                    <span className="absolute -top-1 -right-1 bg-primary text-white font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-orange-50 leading-none"
+                    style={{
+                        fontSize: '10px',
+                        lineHeight: '1',
+                    }}>
+                    2
+                    </span>
+
                 </div>
             </header>
 
@@ -70,7 +77,7 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                         placeholder="Search by Name, Phone, Patient ID"
                         className="w-full py-4 pl-12 pr-12 rounded-2xl bg-gray-50 border border-gray-100 font-bold text-main focus:bg-white transition-all outline-none focus:border-primary/20 shadow-inner text-sm focus:shadow-lg"
                     />
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
+                    <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
                     {searchQuery && (
                         <button onClick={clearSearch} className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-gray-400">
                             <X size={16} />
