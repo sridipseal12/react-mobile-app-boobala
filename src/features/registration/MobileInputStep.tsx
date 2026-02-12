@@ -16,7 +16,7 @@ export default function MobileInputStep({ onBack, onSubmit }: MobileInputStepPro
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
-  const [dobType, setDobType] = useState<'text' | 'date'>('text');
+  const [isDateActive, setIsDateActive] = useState(false);
   const [gender, setGender] = useState('Male');
   const [error, setError] = useState('');
 
@@ -45,7 +45,7 @@ return (
     <div>
     {/* Header */}
     <div className="p-6">
-      <header className="flex items-center mb-8">
+      <header className="flex items-center">
         <button
           onClick={onBack}
           className="-ml-2 p-2 rounded-xl bg-gray-50 flex items-center justify-center"
@@ -62,21 +62,26 @@ return (
     <div className="flex-1 px-6 flex flex-col gap-6 overflow-y-auto">
 
       {/* Phone */}
-      <div className="relative w-full">
-        <input
-          type="tel"
-          value={phone}
-          maxLength={10}
-          onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-          placeholder="Phone Number*"
-          className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all"
-        />
-        {phone && (
-          <label className="absolute left-4 top-0 -translate-y-1/2 text-xs px-1 bg-white">
-            Phone Number*
-          </label>
-        )}
-      </div>
+      <h2 className="text-xl font-bold text-left"></h2>
+        <div className="relative w-full">
+            <input
+            type="tel"
+            value={phone}
+            maxLength={10}
+            onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+            placeholder="Phone Number*"
+            className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all"
+            />
+            {phone && (
+            <label
+                style={{ left: '16px' }}
+                className={`absolute top-0 -translate-y-1/2 text-xs px-1 bg-white z-10
+                ${error ? 'text-red-500' : 'text-gray-500'}`}
+            >
+                Phone number*
+            </label>
+            )}
+        </div>
 
       {/* Name */}
       <div className="relative w-full">
@@ -88,44 +93,59 @@ return (
           className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all"
         />
         {name && (
-          <label className="absolute left-4 top-0 -translate-y-1/2 text-xs px-1 bg-white">
-            Name*
+          <label 
+            style={{ left: '16px' }}
+            className={`absolute top-0 -translate-y-1/2 text-xs px-1 bg-white ${error ? 'text-red-500' : 'text-gray-500'}`}
+          >
+                Name*
           </label>
         )}
       </div>
 
     {/* DOB */}
-    <div className="relative w-full">
-    <input
-        type={dobType}
-        value={dob}
-        onFocus={() => setDobType('date')}
-        onBlur={() => {
-        if (!dob) setDobType('text');
-        }}
-        onChange={(e) => setDob(e.target.value)}
-        placeholder="Date Of Birth *"
-        className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all appearance-none bg-white"
-    />
+<div className="relative w-full">
 
-    {dob && (
-        <label className="absolute left-4 top-0 -translate-y-1/2 text-xs px-1 bg-white text-gray-500">
-        Date Of Birth *
-        </label>
-    )}
+  <input
+    id="dob-input"
+    type={isDateActive ? "date" : "text"}
+    value={dob}
+    readOnly={!isDateActive}
+    placeholder="Date Of Birth *"
+    onClick={() => {
+      setIsDateActive(true);
 
-    <Calendar
-        size={20}
-        onClick={() => {
-        setDobType('date');
-        setTimeout(() => {
-            document.querySelector<HTMLInputElement>('input[type="date"]')?.showPicker?.();
-        }, 100);
-        }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-500 cursor-pointer"
-    />
-    </div>
+      setTimeout(() => {
+        const input = document.getElementById('dob-input') as HTMLInputElement;
+        input?.showPicker?.();
+      }, 100);
+    }}
+    onChange={(e) => setDob(e.target.value)}
+    className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all appearance-none bg-white cursor-pointer"
+  />
 
+  {/* Floating label only AFTER date selected */}
+  {dob && (
+    <label 
+        style={{ left: '16px' }}
+        className={`absolute top-0 -translate-y-1/2 text-xs px-1 bg-white ${error ? 'text-red-500' : 'text-gray-500'}`}>
+            Date Of Birth *
+    </label>
+  )}
+
+  <Calendar
+    size={20}
+    className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-500 cursor-pointer"
+    onClick={() => {
+      setIsDateActive(true);
+
+      setTimeout(() => {
+        const input = document.getElementById('dob-input') as HTMLInputElement;
+        input?.showPicker?.();
+      }, 100);
+    }}
+  />
+
+</div>
 
       {/* Gender */}
       <div className="flex gap-8 mt-2">
