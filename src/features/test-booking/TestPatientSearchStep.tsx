@@ -43,6 +43,7 @@ export default function TestPatientSearchStep({ onBack, onSelect, onRegister }: 
                 <div className="relative">
                     <input
                         type="text"
+                        maxLength={10}
                         placeholder="Search"
                         value={searchQuery}
                         onChange={(e) => handleSearch(e.target.value)}

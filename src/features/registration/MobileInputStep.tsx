@@ -19,6 +19,12 @@ export default function MobileInputStep({ onBack, onSubmit }: MobileInputStepPro
   const [isDateActive, setIsDateActive] = useState(false);
   const [gender, setGender] = useState('Male');
   const [error, setError] = useState('');
+  const isPhoneValid = phone.length === 10;
+    const isNameValid = name.trim().length > 0;
+    const isDobValid = dob.length > 0;
+
+    const isValid = isPhoneValid && isNameValid && isDobValid;
+
 
   const handleSubmit = () => {
     if (phone.length !== 10) {
@@ -36,8 +42,6 @@ export default function MobileInputStep({ onBack, onSubmit }: MobileInputStepPro
 
     onSubmit({ phone, name, dob, gender });
   };
-
-  const isValid = phone.length === 10 && name && dob;
 
 return (
   <div className="h-screen justify-between flex flex-col bg-surface">
@@ -70,7 +74,9 @@ return (
             maxLength={10}
             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
             placeholder="Phone Number*"
-            className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all"
+            className={`w-full p-4 rounded-xl border text-lg font-medium outline-none transition-all
+    ${phone && !isPhoneValid ? 'border-red-500 bg-red-50' : 'border-gray-300'}
+    focus:border-gray-500 focus:ring-0`}
             />
             {phone && (
             <label
@@ -103,49 +109,49 @@ return (
       </div>
 
     {/* DOB */}
-<div className="relative w-full">
+    <div className="relative w-full">
 
-  <input
-    id="dob-input"
-    type={isDateActive ? "date" : "text"}
-    value={dob}
-    readOnly={!isDateActive}
-    placeholder="Date Of Birth *"
-    onClick={() => {
-      setIsDateActive(true);
+    <input
+        id="dob-input"
+        type={isDateActive ? "date" : "text"}
+        value={dob}
+        readOnly={!isDateActive}
+        placeholder="Date Of Birth *"
+        onClick={() => {
+        setIsDateActive(true);
 
-      setTimeout(() => {
-        const input = document.getElementById('dob-input') as HTMLInputElement;
-        input?.showPicker?.();
-      }, 100);
-    }}
-    onChange={(e) => setDob(e.target.value)}
-    className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all appearance-none bg-white cursor-pointer"
-  />
+        setTimeout(() => {
+            const input = document.getElementById('dob-input') as HTMLInputElement;
+            input?.showPicker?.();
+        }, 100);
+        }}
+        onChange={(e) => setDob(e.target.value)}
+        className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all appearance-none bg-white cursor-pointer"
+    />
 
-  {/* Floating label only AFTER date selected */}
-  {dob && (
-    <label 
-        style={{ left: '16px' }}
-        className={`absolute top-0 -translate-y-1/2 text-xs px-1 bg-white ${error ? 'text-red-500' : 'text-gray-500'}`}>
-            Date Of Birth *
-    </label>
-  )}
+    {/* Floating label only AFTER date selected */}
+    {dob && (
+        <label 
+            style={{ left: '16px' }}
+            className={`absolute top-0 -translate-y-1/2 text-xs px-1 bg-white ${error ? 'text-red-500' : 'text-gray-500'}`}>
+                Date Of Birth *
+        </label>
+    )}
 
-  <Calendar
-    size={20}
-    className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-500 cursor-pointer"
-    onClick={() => {
-      setIsDateActive(true);
+    <Calendar
+        size={20}
+        className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-500 cursor-pointer"
+        onClick={() => {
+        setIsDateActive(true);
 
-      setTimeout(() => {
-        const input = document.getElementById('dob-input') as HTMLInputElement;
-        input?.showPicker?.();
-      }, 100);
-    }}
-  />
+        setTimeout(() => {
+            const input = document.getElementById('dob-input') as HTMLInputElement;
+            input?.showPicker?.();
+        }, 100);
+        }}
+    />
 
-</div>
+    </div>
 
       {/* Gender */}
       <div className="flex gap-8 mt-2">
@@ -173,7 +179,12 @@ return (
     {/* Footer Button */}
     <div className="p-6 bg-surface">
       <button
-        className="w-full py-4 bg-primary text-white font-bold rounded-2xl disabled:opacity-50 transition-all"
+        className={`
+            w-full py-4 font-bold rounded-2xl transition-all
+            ${isValid
+            ? "bg-primary text-white shadow-md"
+            : "disabled-btn"}
+        `}
         onClick={handleSubmit}
         disabled={!isValid}
       >

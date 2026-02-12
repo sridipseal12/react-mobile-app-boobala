@@ -1,4 +1,5 @@
 import { ArrowLeft, Search, X } from 'lucide-react';
+import './PatientSearchStep.css';
 import { useState } from 'react';
 
 interface PatientSearchStepProps {
@@ -24,6 +25,7 @@ export default function PatientSearchStep({ onBack, onSearch }: PatientSearchSte
                 <div className="relative group">
                     <input
                         type="tel"
+                        maxLength={10}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Search"
@@ -45,19 +47,12 @@ export default function PatientSearchStep({ onBack, onSearch }: PatientSearchSte
                     <div className="mt-8 animate-in fade-in slide-in-from-top-2 duration-300">
                         <button
                             onClick={() => onSearch(phone)}
-                            className="w-full py-5 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-orange-100 transition-all active:scale-[0.98] hover:shadow-orange-200"
+                            className="search-pat w-full mt-6 py-5 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-orange-100 transition-all active:scale-[0.98] hover:shadow-orange-200"
                         >
                             Search Patient
                         </button>
                     </div>
                 )}
-            </div>
-
-            {/* Numeric Keypad Mock (optional, if app is mobile-focused) */}
-            <div className="mt-auto grid grid-cols-3 gap-x-8 gap-y-4 px-4 py-8 pointer-events-none opacity-20">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, '*', 0, '#'].map((n) => (
-                    <div key={n} className="h-12 flex items-center justify-center text-xl font-bold text-main">{n}</div>
-                ))}
             </div>
         </div>
     );

@@ -151,7 +151,7 @@ input.error {
 }
 
 .grid-cols-queue {
-    grid-template-columns: 3rem 1fr 4rem 5rem;
+    grid-template-columns: 3rem 1fr 4rem 5rem 5rem;
 }
 
 .grid-cols-details {
@@ -159,7 +159,7 @@ input.error {
 }
 
 .grid-cols-vitals {
-    grid-template-columns: 1fr 80px 60px;
+    grid-template-columns: 1fr 120px 80px;
 }
 
 /* Spacing Utilities */

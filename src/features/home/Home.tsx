@@ -12,9 +12,9 @@ interface HomeProps {
 }
 
 const mockQueue = [
-    { id: '#01', name: 'Aarav Patel', type: 'GC', status: 'Ongoing', phone: '9876543210', dob: '25/08/1998', gender: 'Male' },
-    { id: '#02', name: 'Suraj', type: 'GP', status: 'Consulted' },
-    { id: '#03', name: 'Alok', type: 'GP', status: 'Consulted' }
+    { id: '01', name: 'Aarav Patel', type: 'GC', status: 'Ongoing', phone: '9876543210', dob: '25/08/1998', gender: 'Male' },
+    { id: '02', name: 'Suraj', type: 'GP', status: 'Consulted' },
+    { id: '03', name: 'Alok', type: 'GP', status: 'Consulted' }
 ];
 
 const MOCK_SEARCH_RESULTS = [
@@ -78,11 +78,7 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                         className="w-full py-4 pl-12 pr-12 rounded-2xl bg-gray-50 border border-gray-100 font-bold text-main focus:bg-white transition-all outline-none focus:border-primary/20 shadow-inner text-sm focus:shadow-lg"
                     />
                     <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
-                    {searchQuery && (
-                        <button onClick={clearSearch} className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-gray-400">
-                            <X size={16} />
-                        </button>
-                    )}
+                    
                 </div>
             </div>
 
@@ -115,24 +111,26 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                         </div>
 
                         <div className="flex-grow flex flex-col overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm">
-                            <div className="bg-orange-50 p-4 grid grid-cols-queue text-[9px] font-bold text-gray-400 uppercase tracking-widest border-b border-orange-100">
+                            <div className="bg-orange-100 p-4 grid grid-cols-queue text-[9px] font-bold text-gray-400 uppercase tracking-widest border-b border-orange-100">
                                 <span>P.ID</span>
                                 <span>Name</span>
                                 <span>Type</span>
+                                <span>Status</span>
                                 <span className="text-right">Action</span>
                             </div>
                             <div className="flex flex-col overflow-y-auto">
                                 {mockQueue.map((item, idx) => (
                                     <div key={idx} className="p-4 grid grid-cols-queue items-center border-b border-gray-50 last:border-0">
                                         <span className="text-[10px] font-bold text-gray-400 uppercase">{item.id}</span>
-                                        <div className="flex flex-col gap-1">
-                                            <span className="text-[11px] font-bold text-main truncate">{item.name}</span>
-                                            {item.status === 'Ongoing' && (
-                                                <span className="text-[8px] font-bold text-orange-500 uppercase tracking-tighter">● {item.status}</span>
-                                            )}
-                                        </div>
+                                        <span className="flex flex-col gap-1">
+                                            <span className="text-[13px] font-bold text-main truncate">{item.name}</span>
+                                        </span>
                                         <span className="text-[10px] font-bold text-gray-400 uppercase">{item.type}</span>
-                                        <div className="text-right">
+                                        {/* NEW STATUS COLUMN */}
+                                        <span className="text-[9px] font-bold text-gray-500">
+                                            {item.status}
+                                        </span>
+                                        <span className="flex items-center text-right">
                                             {item.status === 'Ongoing' ? (
                                                 <button
                                                     onClick={() => onViewConsultDetails(item)}
@@ -143,7 +141,7 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                                             ) : (
                                                 <span className="text-[9px] font-bold text-gray-300 uppercase tracking-tighter">{item.status}</span>
                                             )}
-                                        </div>
+                                        </span>
                                     </div>
                                 ))}
                             </div>

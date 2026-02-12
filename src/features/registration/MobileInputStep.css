@@ -1,3 +1,8 @@
 .input-fields { 
     padding : 8px 0px 8px 0px;
 }
+.disabled-btn {
+    background-color: #ff7b0080 !important;
+    color: #ffffff !important;
+    cursor: not-allowed;
+}
