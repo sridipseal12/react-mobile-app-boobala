@@ -16,6 +16,7 @@ export default function MobileInputStep({ onBack, onSubmit }: MobileInputStepPro
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
+  const [dobType, setDobType] = useState<'text' | 'date'>('text');
   const [gender, setGender] = useState('Male');
   const [error, setError] = useState('');
 
@@ -93,24 +94,38 @@ return (
         )}
       </div>
 
-      {/* DOB */}
-      <div className="relative w-full">
-        <input
-          type="date"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-          className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all appearance-none"
-        />
-        {dob && (
-          <label className="absolute left-4 top-0 -translate-y-1/2 text-xs px-1 bg-white">
-            Date of Birth*
-          </label>
-        )}
-        <Calendar
-          size={20}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-500 pointer-events-none"
-        />
-      </div>
+    {/* DOB */}
+    <div className="relative w-full">
+    <input
+        type={dobType}
+        value={dob}
+        onFocus={() => setDobType('date')}
+        onBlur={() => {
+        if (!dob) setDobType('text');
+        }}
+        onChange={(e) => setDob(e.target.value)}
+        placeholder="Date Of Birth *"
+        className="w-full p-4 rounded-xl border text-lg font-medium focus:border-gray-500 focus:ring-0 outline-none transition-all appearance-none bg-white"
+    />
+
+    {dob && (
+        <label className="absolute left-4 top-0 -translate-y-1/2 text-xs px-1 bg-white text-gray-500">
+        Date Of Birth *
+        </label>
+    )}
+
+    <Calendar
+        size={20}
+        onClick={() => {
+        setDobType('date');
+        setTimeout(() => {
+            document.querySelector<HTMLInputElement>('input[type="date"]')?.showPicker?.();
+        }, 100);
+        }}
+        className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-500 cursor-pointer"
+    />
+    </div>
+
 
       {/* Gender */}
       <div className="flex gap-8 mt-2">
