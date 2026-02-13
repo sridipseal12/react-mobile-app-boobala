@@ -128,7 +128,7 @@ export default function ConsultationDetailsView({ data, onBack }: ConsultationDe
                 <div className="flex flex-col gap-3">
                     <p className="text-xl font-bold">Doctor's Diagnosis</p>
                     <div className="bg-white border border-gray-100/50 p-6 rounded-[28px] shadow-sm">
-                        <p className="text-[10px] font-medium text-main leading-relaxed">
+                        <p className="text-[12px] font-medium text-main leading-relaxed">
                             Patient has fever with Body Ache. Vitals stable, temperature elevated. Likely viral fever. Advised breathing difficulty, persistent vomiting, severe headache, neck stiffness, rash or worsening symptoms.
                         </p>
                     </div>
@@ -141,14 +141,14 @@ export default function ConsultationDetailsView({ data, onBack }: ConsultationDe
                         {prescriptions.map((p, i) => (
                             <div key={i} className="bg-white border border-gray-100/50 p-6 rounded-[28px] shadow-sm flex flex-col gap-3">
                                 <div className="flex justify-between items-start">
-                                    <h4 className="text-[13px] font-bold text-main">{p.name}</h4>
-                                    <span className="px-2 py-0.5 bg-orange-100/30 text-primary text-[8px] font-bold rounded uppercase tracking-tighter">{p.qty}</span>
+                                    <h4 className="text-[15px] font-bold text-main">{p.name}</h4>
+                                    <span className="px-2 py-0.5 border text-primary font-semibold" style={{borderRadius: 6, height: '30px', borderColor: '#F97316', fontSize: 16}}>{p.qty}</span>
                                 </div>
-                                <p className="text-[9px] text-gray-400 font-medium italic">{p.generic}</p>
+                                <p className="text-[11px] text-gray-400 font-medium italic">{p.generic}</p>
                                 <div className="flex flex-col gap-2 mt-1">
-                                    <p className="text-[10px] font-bold text-main">{p.dosage}</p>
-                                    <p className="text-[10px] font-bold text-gray-400">{p.instruction}</p>
-                                    <p className="text-[9px] text-gray-400">{p.warning} <span className="text-primary cursor-pointer">See more</span></p>
+                                    <p className="text-[11px] font-bold text-main">{p.dosage}</p>
+                                    <p className="text-[11px] font-bold text-gray-400">{p.instruction}</p>
+                                    <p className="text-[10px] text-gray-400">{p.warning} <span className="text-primary cursor-pointer">See more</span></p>
                                 </div>
                             </div>
                         ))}
@@ -157,24 +157,24 @@ export default function ConsultationDetailsView({ data, onBack }: ConsultationDe
 
                 {/* Payment Details */}
                 <div className="bg-white border border-gray-100/50 p-6 rounded-[28px] shadow-sm flex flex-col gap-4">
-                    <p className="text-[9px] font-extrabold text-gray-300 uppercase tracking-widest">Payment Details</p>
+                    <p className="text-[14px] font-bold">Payment Details</p>
                     <div className="flex flex-col gap-3">
-                        <div className="flex justify-between text-[11px] font-bold">
+                        <div className="flex justify-between text-[12px] font-semibold">
                             <span className="text-gray-400">Fees</span>
                             <span className="text-main">₹250</span>
                         </div>
-                        <div className="flex justify-between text-[13px] font-black border-t border-gray-50 pt-3">
+                        <div className="flex justify-between text-[14px] font-black border-t border-gray-50 pt-3 font-semibold">
                             <span className="text-main">Total amount</span>
                             <span className="text-main">₹250</span>
                         </div>
-                        <div className="flex justify-between items-center bg-green-50/50 p-3 rounded-xl mt-1">
+                        <div className="flex justify-between items-center bg-green-50/50 p-3 rounded-xl mt-1" style={{backgroundColor: '#EDF8EE'}}>
+                            <span className="text-[14px] font-bold text-green-600">Payment status</span>
                             <div className="flex items-center gap-2">
-                                <span className="text-[10px] font-bold text-green-600">Payment status</span>
-                                <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center">
-                                    <CheckCircle2 size={12} className="text-green-600" />
+                                <div className="rounded-full bg-green-100 flex items-center justify-center">
+                                    <CheckCircle2 size={23}style={{color: '#22C55E'}} />
                                 </div>
+                            <span className="text-[15px] font-black text-green-600 font-semibold">Paid</span>
                             </div>
-                            <span className="text-[10px] font-black text-green-600 uppercase">Paid</span>
                         </div>
                         <p className="text-[8px] text-gray-300 font-bold text-center mt-1">Paytm UPI: TX-123456789</p>
                     </div>
