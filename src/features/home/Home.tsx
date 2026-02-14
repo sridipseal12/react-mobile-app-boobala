@@ -110,7 +110,7 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                             <h3 className="text-sm font-bold text-main uppercase tracking-widest">Patients In Queue</h3>
                         </div>
 
-                        <div className="flex-grow flex flex-col overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm">
+                        <div className="flex flex-col overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm">
                             <div className="bg-orange-100 p-4 grid grid-cols-queue text-[9px] font-bold text-gray-400 uppercase tracking-widest border-b border-orange-100">
                                 <span>P.ID</span>
                                 <span>Name</span>
@@ -146,7 +146,7 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                                 ))}
                             </div>
                         </div>
-                        <button className="w-full py-2 text-[10px] font-bold text-primary uppercase tracking-widest hover:bg-orange-50 transition-colors rounded-xl">View All Patients</button>
+                        <button className="w-full py-2 text-[10px] font-bold text-primary uppercase tracking-widest hover:bg-orange-50 transition-colors rounded-xl">View All Patients ➞</button>
                     </section>
                 </>
             ) : (
@@ -177,7 +177,7 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
                             </div>
                         </>
                     ) : (hasSearched && (
-                        <div className="flex flex-col items-center justify-center py-12 gap-6 animate-in fade-in zoom-in-95 duration-300 bg-white rounded-[32px] border border-gray-100 shadow-sm mt-4">
+                        <div className="p-6 flex flex-col items-center justify-center py-12 gap-6 animate-in fade-in zoom-in-95 duration-300 bg-white rounded-[32px] border border-gray-100 shadow-sm mt-4">
                             <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center">
                                 <Search size={32} className="text-gray-200" />
                             </div>
