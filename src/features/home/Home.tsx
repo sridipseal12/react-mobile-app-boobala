@@ -1,4 +1,4 @@
-import { Search, Bell, UserPlus, Stethoscope, Microscope, Menu, X } from 'lucide-react';
+import { Search, Bell, UserPlus, Stethoscope, Microscope, Menu } from 'lucide-react';
 import { useState } from 'react';
 
 interface HomeProps {
@@ -37,11 +37,11 @@ export default function Home({ onOpenProfile, onRegisterPatient, onConsultation,
         }
     };
 
-    const clearSearch = () => {
-        setSearchQuery('');
-        setResults([]);
-        setHasSearched(false);
-    };
+    // const clearSearch = () => {
+    //     setSearchQuery('');
+    //     setResults([]);
+    //     setHasSearched(false);
+    // };
 
     return (
         <div className="home-screen p-6 flex flex-col gap-6 h-screen overflow-y-auto">

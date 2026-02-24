@@ -52,8 +52,8 @@ export default function RegistrationContainer({ onBack, onConsult, onViewConsult
                 return (
                     <MobileInputStep
                         onBack={onBack}
-                        onSubmit={(phone: string) => {
-                            updateData({ phone });
+                        onSubmit={(formData) => {
+                            updateData({ phone: formData.phone });
                             setStep('PATIENT_FORM');
                         }}
                     />
