@@ -25,7 +25,9 @@ export default function ConsultationContainer({ onBack, onRegister }: Consultati
     const [consultData, setConsultData] = useState({
         reason: '',
         patientName: '',
-        patientPhone: ''
+        patientPhone: '',
+        selectedTime: '',
+        selectedDate: ''
     });
 
     const renderStep = () => {
@@ -61,9 +63,9 @@ export default function ConsultationContainer({ onBack, onRegister }: Consultati
                     <ReasonForVisitStep
                         data={consultData}
                         onBack={() => setStep('SELECT_PATIENT')}
-                        onSubmit={(reason: string) => {
-                            console.log('Transitioning to PAYMENT with reason:', reason);
-                            setConsultData({ ...consultData, reason });
+                        onSubmit={(reason: string, selectedTime: string, selectedDate: string) => {
+                            console.log('Transitioning to PAYMENT with reason:', reason, 'time:', selectedTime, 'date:', selectedDate);
+                            setConsultData({ ...consultData, reason, selectedTime, selectedDate });
                             setStep('PAYMENT');
                         }}
                     />

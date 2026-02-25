@@ -4,41 +4,122 @@ interface StepperProps {
 }
 
 export default function Stepper({ currentStep, steps }: StepperProps) {
+    const CIRCLE_SIZE = 32;
+    const HALF = CIRCLE_SIZE / 2;
+    const totalSteps = steps.length;
+
     return (
-        <div className="w-full relative py-2 mb-12 select-none">
-            {/* Background Connector Line */}
-            <div className="absolute top-[16px] left-[10%] right-[10%] h-[2px] bg-gray-100 -z-0" />
+        <div style={{ width: '100%', position: 'relative', padding: '4px 0 24px', userSelect: 'none' }}>
 
-            {/* Active Progress Line */}
-            <div className="absolute top-[16px] left-[10%] right-[10%] h-[2px] -z-0">
-                <div
-                    className="h-full bg-green-500 transition-all duration-700 shadow-[0_0_8px_rgba(34,197,94,0.3)]"
-                    style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
-                />
-            </div>
+            {/* Segment lines between each pair of steps */}
+            {steps.map((_, index) => {
+                if (index === totalSteps - 1) return null;
+                const segmentCompleted = index + 1 < currentStep;
+                const leftPct  = (index / (totalSteps - 1)) * 80 + 10;
+                const rightPct = ((index + 1) / (totalSteps - 1)) * 80 + 10;
+                return (
+                    <div key={`line-${index}`} style={{
+                        position: 'absolute',
+                        top: HALF + 4,
+                        left: `${leftPct}%`,
+                        right: `${100 - rightPct}%`,
+                        height: '1.5px',
+                        background: segmentCompleted ? '#22C55E' : 'rgba(0,0,0,0.2)',
+                        zIndex: 0,
+                        transition: 'background 0.4s ease'
+                    }} />
+                );
+            })}
 
-            <div className="flex justify-between items-start w-full relative z-10 px-2">
+            {/* Steps */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                position: 'relative',
+                zIndex: 1,
+                paddingLeft: '8px',
+                paddingRight: '8px'
+            }}>
                 {steps.map((step, index) => {
-                    const isActive = index + 1 === currentStep;
+                    const isActive    = index + 1 === currentStep;
                     const isCompleted = index + 1 < currentStep;
 
+                    // Circle styles
+                    const circleBorder = isCompleted
+                        ? '2px solid #22C55E'
+                        : isActive
+                            ? '2px solid #FF7A00'
+                            : '2px solid rgba(0,0,0,0.2)';
+                    const circleBg    = 'white';
+                    const circleColor = isCompleted
+                        ? '#22C55E'
+                        : isActive
+                            ? '#FF7A00'
+                            : '#1F2937'; // black number for upcoming
+
+                    // Label styles
+                    const labelColor = isCompleted
+                        ? '#1F2937'
+                        : isActive
+                            ? '#1F2937'  // black for active
+                            : '#9CA3AF'; // grey for upcoming
+
                     return (
-                        <div key={index} className="flex flex-col items-center flex-1">
+                        <div key={index} style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            flex: 1
+                        }}>
                             {/* Circle */}
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold border-2 transition-all duration-300 bg-white ${isActive
-                                    ? 'bg-primary border-primary text-white shadow-xl shadow-orange-100 scale-110'
-                                    : isCompleted
-                                        ? 'bg-green-500 border-green-500 text-white'
-                                        : 'bg-white border-gray-100 text-gray-300'
-                                }`}>
-                                {isCompleted ? '✓' : index + 1}
+                            <div style={{
+                                width: CIRCLE_SIZE,
+                                height: CIRCLE_SIZE,
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '13px',
+                                fontWeight: 700,
+                                border: circleBorder,
+                                background: circleBg,
+                                color: circleColor,
+                                flexShrink: 0,
+                                position: 'relative',
+                                zIndex: 2,
+                                transition: 'all 0.3s ease'
+                            }}>
+                                {/* Always show the step number (no tick) */}
+                                {index + 1}
                             </div>
 
-                            {/* Label - Naturally positioned below circle */}
-                            <span className={`mt-3 text-[9px] font-bold uppercase tracking-tight text-center leading-tight w-20 transition-all duration-300 ${isActive ? 'text-primary' : 'text-gray-300'
-                                }`}>
+                            {/* Label */}
+                            <span style={{
+                                marginTop: '8px',
+                                fontSize: '9px',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.04em',
+                                textAlign: 'center',
+                                maxWidth: '90px',
+                                lineHeight: 1.3,
+                                color: labelColor,
+                                transition: 'color 0.3s ease'
+                            }}>
                                 {step.label}
                             </span>
+
+                            {/* Active underline accent */}
+                            {isActive && (
+                                <div style={{
+                                    marginTop: '3px',
+                                    width: '40px',
+                                    height: '2px',
+                                    borderRadius: '2px',
+                                    background: '#FF7A00'
+                                }} />
+                            )}
                         </div>
                     );
                 })}

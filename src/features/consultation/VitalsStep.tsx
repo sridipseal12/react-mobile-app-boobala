@@ -3,7 +3,12 @@ import { useState } from 'react';
 import Stepper from '../../components/Stepper';
 
 interface VitalsStepProps {
-    data: { patientName: string; patientPhone: string };
+    data: { patientName: string; 
+        patientPhone: string ;
+        dob?: string;
+        age?: string;
+        gender?: string;
+     };
     onBack: () => void;
     onComplete: () => void;
 }
@@ -19,7 +24,7 @@ export default function VitalsStep({ data, onBack, onComplete }: VitalsStepProps
     const steps = [
         { label: 'Reason for visit' },
         { label: 'Review & pay' },
-        { label: 'Consultation' }
+        { label: 'Record Vitals' }
     ];
 
     const isComplete = vitals.height && vitals.weight && vitals.temp && vitals.bp;
@@ -36,15 +41,47 @@ export default function VitalsStep({ data, onBack, onComplete }: VitalsStepProps
             <Stepper currentStep={3} steps={steps} />
 
             <div className="flex-grow flex flex-col gap-8 mt-4 px-1">
-                <div className="bg-gray-50 rounded-[32px] p-8 border border-gray-100/50 shadow-sm transition-all hover:bg-white hover:shadow-md">
-                    <div className="grid grid-cols-2 gap-10">
-                        <div className="flex flex-col gap-2">
-                            <p className="text-gray-400 text-[8px] uppercase font-bold tracking-widest">Patient Name</p>
-                            <p className="text-sm font-bold text-main">{data.patientName}</p>
+                                {/* Patient Info Card */}
+                <div style={{
+                    background: 'white',
+                    borderRadius: '20px',
+                    padding: '20px',
+                    border: '1px solid #F3F4F6',
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                    marginBottom: '20px'
+                }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                        <div>
+                            <p style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 700, marginBottom: '4px' }}>
+                                Name
+                            </p>
+                            <p style={{ fontSize: '14px', fontWeight: 700, color: '#2D2D2D' }}>
+                                {data.patientName || 'Aarav Patel'}
+                            </p>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <p className="text-gray-400 text-[8px] uppercase font-bold tracking-widest">Phone Number</p>
-                            <p className="text-sm font-bold text-main">{data.patientPhone}</p>
+                        <div>
+                            <p style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 700, marginBottom: '4px' }}>
+                                Phone Number
+                            </p>
+                            <p style={{ fontSize: '14px', fontWeight: 700, color: '#2D2D2D' }}>
+                                {data.patientPhone || '9876543210'}
+                            </p>
+                        </div>
+                        <div>
+                            <p style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 700, marginBottom: '4px' }}>
+                                Date of Birth
+                            </p>
+                            <p style={{ fontSize: '14px', fontWeight: 700, color: '#2D2D2D' }}>
+                                {data.dob || '26/03/1980'}{data.age ? ` (${data.age} Yrs)` : ' (45 Yrs)'}
+                            </p>
+                        </div>
+                        <div>
+                            <p style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 700, marginBottom: '4px' }}>
+                                Gender
+                            </p>
+                            <p style={{ fontSize: '14px', fontWeight: 700, color: '#2D2D2D' }}>
+                                {data.gender || 'Male'}
+                            </p>
                         </div>
                     </div>
                 </div>
