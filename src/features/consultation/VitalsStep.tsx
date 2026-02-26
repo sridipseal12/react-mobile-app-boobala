@@ -40,7 +40,7 @@ export default function VitalsStep({ data, onBack, onComplete }: VitalsStepProps
 
             <Stepper currentStep={3} steps={steps} />
 
-            <div className="flex-grow flex flex-col gap-8 mt-4 px-1">
+            <div className="flex-grow flex flex-col gap-6 mt-4 px-1 mb-8">
                                 {/* Patient Info Card */}
                 <div style={{
                     background: 'white',
@@ -86,60 +86,96 @@ export default function VitalsStep({ data, onBack, onComplete }: VitalsStepProps
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-6 gap-y-10">
-                    <div className="flex flex-col gap-3">
-                        <label className="text-gray-400 text-[10px] font-bold uppercase tracking-widest px-1">Height</label>
-                        <div className="relative group">
-                            <input
-                                type="text"
-                                placeholder="175"
-                                value={vitals.height}
-                                onChange={(e) => setVitals({ ...vitals, height: e.target.value })}
-                                className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border border-gray-100 font-bold text-main focus:bg-white transition-all outline-none focus:border-primary/30 shadow-inner group-hover:bg-white"
-                            />
-                            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-extrabold text-gray-300 uppercase tracking-tighter">CM</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        <label className="text-gray-400 text-[10px] font-bold uppercase tracking-widest px-1">Weight</label>
-                        <div className="relative group">
-                            <input
-                                type="text"
-                                placeholder="70"
-                                value={vitals.weight}
-                                onChange={(e) => setVitals({ ...vitals, weight: e.target.value })}
-                                className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border border-gray-100 font-bold text-main focus:bg-white transition-all outline-none focus:border-primary/30 shadow-inner group-hover:bg-white"
-                            />
-                            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-extrabold text-gray-300 uppercase tracking-tighter">KG</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        <label className="text-gray-400 text-[10px] font-bold uppercase tracking-widest px-1">Temperature</label>
-                        <div className="relative group">
-                            <input
-                                type="text"
-                                placeholder="98.6"
-                                value={vitals.temp}
-                                onChange={(e) => setVitals({ ...vitals, temp: e.target.value })}
-                                className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border border-gray-100 font-bold text-main focus:bg-white transition-all outline-none focus:border-primary/30 shadow-inner group-hover:bg-white"
-                            />
-                            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-extrabold text-gray-300 uppercase tracking-tighter">°F</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        <label className="text-gray-400 text-[10px] font-bold uppercase tracking-widest px-1">Blood Pressure</label>
-                        <div className="relative group">
-                            <input
-                                type="text"
-                                placeholder="120/80"
-                                value={vitals.bp}
-                                onChange={(e) => setVitals({ ...vitals, bp: e.target.value })}
-                                className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border border-gray-100 font-bold text-main focus:bg-white transition-all outline-none focus:border-primary/30 shadow-inner group-hover:bg-white"
-                            />
-                            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-extrabold text-gray-300 uppercase tracking-tighter">BP</span>
-                        </div>
+                <div className="flex flex-col gap-3">
+                    <div className="relative group">
+                        <input
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            onChange={(e) => {
+                                const onlyNums = e.target.value.replace(/\D/g, '');
+                                setVitals({ ...vitals, height: onlyNums });
+                            }}
+                            placeholder="Height (in cm) *"
+                            value={vitals.height}
+                            className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border text-main focus:bg-white transition-all outline-none focus:border-black group-hover:bg-white"
+                            style={{ border: "1px solid gray" }}
+                        />                        
+                        {vitals.height && (
+                            <label
+                                style={{ left: '16px' }}
+                                className="absolute top-0 -translate-y-1/2 text-xs px-1 bg-white text-gray-500"
+                            >
+                                Height (in cm) *
+                            </label>
+                        )}  
                     </div>
                 </div>
+                <div className="flex flex-col gap-3">
+                    <div className="relative group">
+                        <input
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            onChange={(e) => {
+                                const onlyNums = e.target.value.replace(/\D/g, '');
+                                setVitals({ ...vitals, weight: onlyNums });
+                            }}
+                            placeholder="Weight (in kg) *"
+                            value={vitals.weight}
+                            className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border text-main focus:bg-white transition-all outline-none group-hover:bg-white"
+                            style={{ border: "1px solid gray" }}
+                        />              
+                        {vitals.weight && (
+                            <label
+                                style={{ left: '16px' }}
+                                className="absolute top-0 -translate-y-1/2 text-xs px-1 bg-white text-gray-500"
+                            >
+                                Weight (in kg) *
+                            </label>
+                        )}          
+                    </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <div className="relative group">
+                        <input
+                            type="text"
+                            placeholder="Temperature (in °F) *"
+                            value={vitals.temp}
+                            onChange={(e) => setVitals({ ...vitals, temp: e.target.value })}
+                            className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border text-main focus:bg-white transition-all outline-none focus:border-black group-hover:bg-white"
+                            style={{ border: "1px solid gray" }}
+                        />
+                        {vitals.temp && (
+                            <label
+                                style={{ left: '16px' }}
+                                className="absolute top-0 -translate-y-1/2 text-xs px-1 bg-white text-gray-500"
+                            >
+                                Temperature (in °F) *
+                            </label>
+                        )}  
+                    </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <div className="relative group">
+                        <input
+                            type="text"
+                            placeholder="Blood Pressure (in mmHg) *"
+                            value={vitals.bp}
+                            onChange={(e) => setVitals({ ...vitals, bp: e.target.value })}
+                            className="w-full py-4 pr-14 pl-6 rounded-[24px] bg-gray-50 border text-main focus:bg-white transition-all outline-none focus:border-black group-hover:bg-white"
+                            style={{ border: "1px solid gray" }}
+                        />                        
+                        {vitals.bp && (
+                            <label
+                                style={{ left: '16px' }}
+                                className="absolute top-0 -translate-y-1/2 text-xs px-1 bg-white text-gray-500"
+                            >
+                                Blood Pressure (in mmHg) *
+                            </label>
+                        )}  
+                    </div>
+                </div>                
             </div>
 
             <div className="mt-auto pt-10">
